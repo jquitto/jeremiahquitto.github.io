@@ -1,0 +1,6 @@
+-- Pods restarting more than 0 times in last 5 minutes
+FROM K8sContainerSample
+SELECT latest(restartCount) AS restarts
+WHERE restartCount > 0
+SINCE 5 minutes ago
+FACET containerName, podName, namespaceName

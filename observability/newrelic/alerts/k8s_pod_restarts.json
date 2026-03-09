@@ -1,0 +1,16 @@
+{
+  "name": "K8s Container Restarts > 0",
+  "type": "static",
+  "nrql": {
+    "query": "FROM K8sContainerSample SELECT latest(restartCount) WHERE restartCount > 0"
+  },
+  "terms": [
+    {
+      "threshold": 0,
+      "priority": "critical",
+      "operator": "above",
+      "duration": 5,
+      "timeFunction": "all"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+-- Error rate (HTTP 5xx) by service
+FROM Log
+SELECT filter(count(*), WHERE http.statusCode LIKE '5%') / count(*) * 100 AS 'error %'
+FACET service.name
+SINCE 15 minutes ago

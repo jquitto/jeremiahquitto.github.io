@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install app deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r docker/app/requirements.txt
+
+      - name: Lint (flake8 minimal)
+        run: |
+          pip install flake8
+          flake8 docker/app --max-line-length=100
+
+      - name: Run unit tests (none yet, smoke-start app)
+        run: |
+          python docker/app/app.py &
+          sleep 2
+          curl -fsS http://127.0.0.1:8080/health
+
+      - name: Validate K8s manifests (server-side dry-run)
+        run: |
+          kubectl kustomize k8s/overlays/dev | kubectl apply --dry-run=server -f - || true
