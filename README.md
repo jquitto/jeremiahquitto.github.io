@@ -26,4 +26,4 @@ I am a Site Reliability Engineer with experience in AWS, Kubernetes, automation,
 
 ## 📫 Contact
 - Email: jeremiahquitto@gmail.com
-- LinkedIn: https://linkedin.com/in/yourprofile
+- LinkedIn: https://linkedin.com/in/jeremiahquitto
